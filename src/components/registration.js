@@ -1,15 +1,13 @@
-//import { render } from '@testing-library/react';
 import React, { Component} from 'react';
 
-class Login extends Component {
+class Registration extends Component {
 
     state = {
-        credentials: {username: '', password: ''}
+        credentials: {username: '', email: '', password: ''}
     }
 
-    login = event => {
-        console.log(this.state.credentials);
-        fetch('http://127.0.0.1:8000/auth/', {
+    register = event => {
+        fetch('http://127.0.0.1:8000/accounts/users/', {
          method: 'POST',
          headers: {'Content-Type': 'application/json'},
          body: JSON.stringify(this.state.credentials)
@@ -32,10 +30,15 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <h1>login user</h1>
+                <h1>Register User</h1>
                 <label>
                     Username:
                     <input type='text' name='username' value={this.state.credentials.username} onChange={this.inputChanged} />
+                </label>
+                <br/>
+                <label>
+                    Email:
+                    <input type='text' name='email' value={this.state.credentials.email} onChange={this.inputChanged} />
                 </label>
                 <br/>
                 <label>
@@ -44,10 +47,10 @@ class Login extends Component {
                 </label>
                 <br/>
 
-                <button onClick={this.login}>Login</button>
+                <button onClick={this.register}>Register</button>
             </div>
         );
     }
 }
 
-export default Login;
+export default Registration;
