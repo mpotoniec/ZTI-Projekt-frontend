@@ -1,4 +1,5 @@
 //import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -10,17 +11,37 @@ import {
 import Home from './components/home'
 import Login from './components/login';
 import Registration from './components/registration';
+import Reservation from './components/reservation';
+import Services from './components/services';
 
-function App() {
+class App extends React.Component {
+  state = { message: "" }
+
+  callbackFunction = (childData) => {
+      this.setState({message: childData})
+  }
+render(){
+  console.log(this.state.message);
   return (
-    <Router>
-      <div className="App">
-        <Route exact path="/" component = {Home} />
-        <Route path="/login" component = {Login} />
-        <Route path="/registration" component = {Registration} />
-      </div>
-    </Router>
+    <div>
+      <Router>
+        <div className="App">
+          <Route exact path="/" component = {Home} />
+          <Route path="/login" >
+            <Login parentCallback = {this.callbackFunction}/>
+          </Route>
+          <Route path="/registration" component = {Registration} />
+          <Route path="/services" component = {Services} />
+          <Route path="/reservation" >
+            
+          </Route>
+          
+        </div>
+      </Router>
+      <Reservation token={this.state.message}/>
+    </div>
   );
+  }
 }
 
 export default App;

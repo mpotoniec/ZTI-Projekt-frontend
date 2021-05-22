@@ -4,11 +4,15 @@ import React, { Component} from 'react';
 class Login extends Component {
 
     state = {
-        credentials: {username: '', password: ''}
+        credentials: {username: '', password: ''},
+        token: null
     }
 
+    sendData = () => {
+        this.props.parentCallback(this.state.token);
+    }
     login = event => {
-        console.log(this.state.credentials);
+        console.log("Login for ", this.state.credentials,"...");
         fetch('http://127.0.0.1:8000/auth/', {
          method: 'POST',
          headers: {'Content-Type': 'application/json'},
@@ -18,8 +22,23 @@ class Login extends Component {
         .then(
             data => {
                 console.log(data.token)
+                this.setState({token: data.token})
+                this.sendData();
             }
         ).catch(error => console.error(error))
+    }
+
+    logout = event => {
+        console.log("Logout...")
+        this.setState({token: null})
+        this.sendData();
+
+        this.setState({token: null})
+        this.sendData();
+    }
+
+    showtoken = event => {
+        console.log("Token is: ", this.state.token)
     }
 
     inputChanged = event => {
@@ -28,6 +47,7 @@ class Login extends Component {
         this.setState({credentials: cred});
 
     }
+    
     
     render() {
         return (
@@ -45,9 +65,13 @@ class Login extends Component {
                 <br/>
 
                 <button onClick={this.login}>Login</button>
+                <button onClick={this.logout}>Logout</button>
+                <button onClick={this.showtoken}>showtoken</button>
+                <h1>Token: { this.state.token }</h1>
             </div>
         );
     }
 }
+
 
 export default Login;
