@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 class Reservation extends Component {
     state = {
-        token: null
+        token: null,
+        data_from_site: ''
     };
 
     get_data = event => {
@@ -15,6 +16,7 @@ class Reservation extends Component {
             data => {
                 console.log("fetching...")
                 console.log(data)
+                this.setState({data_from_site: data})
             }
         ).catch(error => console.error(error))
     }
@@ -32,7 +34,7 @@ class Reservation extends Component {
             <div>
                 <h1>Site</h1>
                 <button onClick={this.get_data}>get</button>
-                <p> pokaz sie {this.state.token}</p>
+                <p> { this.state.data_from_site }</p>
 
             </div>
         )
@@ -40,3 +42,4 @@ class Reservation extends Component {
 }
 
 export default Reservation;
+//<p> {this.state.token}</p>

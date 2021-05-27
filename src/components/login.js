@@ -67,7 +67,6 @@ class Login extends Component {
                 <button onClick={this.login}>Login</button>
                 <button onClick={this.logout}>Logout</button>
                 <button onClick={this.showtoken}>showtoken</button>
-                <h1>Token: { this.state.token }</h1>
             </div>
         );
     }
@@ -75,3 +74,4 @@ class Login extends Component {
 
 
 export default Login;
+//<h1>Token: { this.state.token }</h1>
