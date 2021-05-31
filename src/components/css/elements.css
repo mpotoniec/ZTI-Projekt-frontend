@@ -1,0 +1,18 @@
+.Button {
+    padding: 5px 15px;
+    margin: 5px;
+}
+
+.Label {
+    
+}
+.FirstRow{
+   
+}
+.Wrapper {
+    display: grid;
+    grid-template-columns: 150px 50px;
+    padding:10px;
+    width: 300px;
+    margin:auto;
+}

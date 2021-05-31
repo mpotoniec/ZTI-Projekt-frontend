@@ -1,0 +1,16 @@
+.Navbar {
+    padding: 10px;
+    text-align: center;
+    background-color: rgb(1, 12, 160);
+    
+}
+
+.Link {
+    margin: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.Link:hover {
+    color:firebrick;
+}

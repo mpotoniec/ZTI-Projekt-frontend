@@ -1,21 +1,22 @@
 import React, { Component} from 'react';
+import './css/elements.css';
 
 class Registration extends Component {
 
     state = {
-        credentials: {username: '', email: '', password: ''}
+        credentials: {username: '', email: '', password: '', password2: ''}
     }
 
     register = event => {
         fetch('http://127.0.0.1:8000/accounts/users/', {
-         method: 'POST',
-         headers: {'Content-Type': 'application/json'},
-         body: JSON.stringify(this.state.credentials)
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(this.state.credentials)
         })
         .then(data => data.json())
         .then(
             data => {
-                console.log(data.token)
+                console.log(data)
             }
         ).catch(error => console.error(error))
     }
@@ -30,25 +31,26 @@ class Registration extends Component {
     render() {
         return (
             <div>
-                <h1>Register User</h1>
-                <label>
-                    Username:
-                    <input type='text' name='username' value={this.state.credentials.username} onChange={this.inputChanged} />
-                </label>
-                <br/>
-                <label>
-                    Email:
-                    <input type='text' name='email' value={this.state.credentials.email} onChange={this.inputChanged} />
-                </label>
-                <br/>
-                <label>
-                    Password:
-                    <input type='text' name='password' value={this.state.credentials.password} onChange={this.inputChanged} />
-                </label>
-                <br/>
+                <h1>Zarejestruj się</h1>
+                    <div className="Wrapper">
+                        <div>Wprowadź login:</div>
+                         <label>
+                            <input type='text' name='username' value={this.state.credentials.username} onChange={this.inputChanged} />
+                        </label>
 
-                <button onClick={this.register}>Register</button>
-            </div>
+                        <div>Wprowadź email:</div>
+                        <label>
+                            <input type='text' name='email' value={this.state.credentials.email} onChange={this.inputChanged} />
+                        </label>
+
+                        <div>Wprowadź hasło:</div>
+                        <label>
+                            <input type='text' name='password' value={this.state.credentials.password} onChange={this.inputChanged} />
+                        </label>
+
+                        </div>
+                            <button className="Button" onClick={this.register}>Rejestracja</button>
+                        </div>
         );
     }
 }

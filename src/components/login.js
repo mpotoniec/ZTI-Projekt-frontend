@@ -1,5 +1,6 @@
 //import { render } from '@testing-library/react';
 import React, { Component} from 'react';
+import './css/elements.css';
 
 class Login extends Component {
 
@@ -52,21 +53,25 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <h1>login user</h1>
-                <label>
-                    Username:
-                    <input type='text' name='username' value={this.state.credentials.username} onChange={this.inputChanged} />
-                </label>
-                <br/>
-                <label>
-                    Password:
-                    <input type='text' name='password' value={this.state.credentials.password} onChange={this.inputChanged} />
-                </label>
-                <br/>
+                <h1>Zaloguj się</h1>
+                <div className="Wrapper">
 
-                <button onClick={this.login}>Login</button>
-                <button onClick={this.logout}>Logout</button>
-                <button onClick={this.showtoken}>showtoken</button>
+                        <div>Wprowadź login:</div>
+                        <label className="Label">
+                            
+                            <input type='text' name='username' value={this.state.credentials.username} onChange={this.inputChanged} />
+                        </label>
+                    
+                    <div>Wprowadź hasło:</div>
+                    <label className="Label">
+                        
+                        <input type='text' name='password' value={this.state.credentials.password} onChange={this.inputChanged} />
+                    </label>
+                </div>
+
+                <button className="Button" onClick={this.login}>Zaloguj</button>
+                <button className="Button" onClick={this.logout}>Wyloguj</button>
+                
             </div>
         );
     }
@@ -74,4 +79,3 @@ class Login extends Component {
 
 
 export default Login;
-//<h1>Token: { this.state.token }</h1>
