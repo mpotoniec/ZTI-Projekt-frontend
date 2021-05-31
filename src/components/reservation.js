@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import './css/elements.css';
+import DateTimePicker from 'react-datetime-picker';
 
 class Reservation extends Component {
     state = {
@@ -9,7 +10,9 @@ class Reservation extends Component {
         stations: [""],
         service_to_send: '',
         station_to_send: '',
-        to_post_data: ''
+        to_post_data: '',
+        reservation_result: '',
+        date: ''
     };
 
     get_data = event => {
@@ -52,6 +55,8 @@ class Reservation extends Component {
 
         var to_reserve = this.state.service_to_send + '-' + this.state.station_to_send
         this.setState({to_post_data: to_reserve})
+        console.log('Czas do przesłania: ', this.state.date)
+        to_reserve += '-' + this.state.date
 
         fetch('http://127.0.0.1:8000/reservation/reserve/', {
          method: 'POST',
@@ -64,6 +69,7 @@ class Reservation extends Component {
                 console.log("fetching...")
                 console.log('to send', this.state.to_post_data)
                 console.log('response',data)
+                this.setState({reservation_result: data})
             }
         ).catch(error => console.error(error))
     }
@@ -71,6 +77,7 @@ class Reservation extends Component {
     componentDidMount(){
         this.setState({
             token: this.props.token,
+            value: new Date()
         });
         this.get_data();
         this.get_info();
@@ -87,11 +94,11 @@ class Reservation extends Component {
         this.setState({station_to_send: station})
         console.log(event.target.value)
     }
-    
 
     render() {
         console.log(this.props.token);
-        
+        console.log(this.state.date);
+
         return (
             <div>
                 <h1>Informacje o Twoich rezerwacjach</h1>
@@ -106,21 +113,24 @@ class Reservation extends Component {
                             <option value={station}>{station}</option>
                         )};
                     </select>
-                </div>
 
-                <div className="container pt~5">
                     <select className="custom-select" onChange={this.handle_stationChange}>
                         {this.state.stations.map(station => 
                             <option value={station}>{station}</option>
                         )};
                     </select>
                 </div>
-
+                            
+                <div>
+                    <DateTimePicker
+                        onChange={(date) => this.setState({ date })}
+                        value={this.state.date}
+                        minDate={new Date()}
+                    />
+                </div>
                 <button className="Button" onClick={this.make_reservation}>Zarezerwuj</button>
 
-                <p> { this.state.service_to_send }</p>
-                <p> { this.state.station_to_send }</p>
-
+                <p> { this.state.reservation_result }</p>
             </div>
         )
     }
