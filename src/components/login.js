@@ -51,10 +51,12 @@ class Login extends Component {
     
     
     render() {
+
         return (
             <div>
                 <h1>Zaloguj się</h1>
                 <div className="Wrapper">
+
 
                         <div>Wprowadź login:</div>
                         <label className="Label">
@@ -71,6 +73,7 @@ class Login extends Component {
 
                 <button className="Button" onClick={this.login}>Zaloguj</button>
                 <button className="Button" onClick={this.logout}>Wyloguj</button>
+
                 
             </div>
         );

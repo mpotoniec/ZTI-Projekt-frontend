@@ -5,7 +5,7 @@ import DateTimePicker from 'react-datetime-picker';
 class Reservation extends Component {
     state = {
         token: null,
-        data_from_site: '',
+        data_from_site: [],
         services: [""],
         stations: [""],
         service_to_send: '',
@@ -26,7 +26,8 @@ class Reservation extends Component {
             data => {
                 console.log("fetching...")
                 console.log(data)
-                this.setState({data_from_site: data})
+                var reservations = data.split('|')
+                this.setState({data_from_site: reservations})
             }
         ).catch(error => console.error(error))
     }
@@ -103,7 +104,9 @@ class Reservation extends Component {
             <div>
                 <h1>Informacje o Twoich rezerwacjach</h1>
             
-                <p> { this.state.data_from_site }</p>
+                {this.state.data_from_site.map(resevation => 
+                            <p>{resevation}</p>
+                        )}
 
                 <h1>Dokonaj rezerwacji</h1>
 

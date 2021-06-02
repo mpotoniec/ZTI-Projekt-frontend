@@ -4,7 +4,8 @@ import './css/elements.css';
 class Registration extends Component {
 
     state = {
-        credentials: {username: '', email: '', password: '', password2: ''}
+        credentials: {username: '', email: '', password: ''},
+        response: null
     }
 
     register = event => {
@@ -17,6 +18,17 @@ class Registration extends Component {
         .then(
             data => {
                 console.log(data)
+                if(data.email.length == 1){
+                    this.setState({response: 'Nieprawidłowy email'})
+                    console.log('Nieprawidłowy email')
+                }
+                else if (data.username.length == 1) {
+                    this.setState({response: 'Użytkownik o tej nazwie już istnieje'})
+                    console.log('Użytkownik o tej nazwie już istnieje')
+                }else{
+                    this.setState({response: 'Rejestracja udana'})
+                    console.log('Rejestracja udana')
+                }
             }
         ).catch(error => console.error(error))
     }
@@ -50,7 +62,10 @@ class Registration extends Component {
 
                         </div>
                             <button className="Button" onClick={this.register}>Rejestracja</button>
+
+                            <p>{this.state.response}</p>
                         </div>
+
         );
     }
 }
